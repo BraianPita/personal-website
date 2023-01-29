@@ -1,25 +1,61 @@
 import * as React from 'react';
-import Link from '@mui/material/Link';
-import SvgIcon, { SvgIconProps } from '@mui/material/SvgIcon';
+import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import Div from '@mui/material/Divider';
+import Stack from '@mui/material/Stack';
+import Link from '@mui/material/Link'
 
-function LightBulbIcon(props: SvgIconProps) {
-  return (
-    <SvgIcon {...props}>
-      <path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z" />
-    </SvgIcon>
-  );
-}
+
+// Icons
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import ResumeIcon from '@mui/icons-material/AssignmentInd';
+
+const Buttons = [
+  {
+    Icon: LinkedInIcon,
+    text: "LinkedIn",
+    color: "blue",
+    link: "https://www.linkedin.com/in/braian-pita/"
+  },
+  {
+    Icon: ResumeIcon,
+    text: "Resume",
+    color: "red",
+    link: ""
+  },
+  {
+    Icon: GitHubIcon,
+    text: "Github",
+    color: "text.primary",
+    link: "https://github.com/BraianPita"
+  }
+]
 
 export default function LinkTree() {
   return (
-    <Div>
-      <LightBulbIcon sx={{ mt: 1, align: 'center' }} />
+    <Stack direction="column" spacing={2} alignItems="center">
+
+      {
+        Buttons.map((btn, idx) => (
+          <Button key={idx} sx={{
+            minWidth: "150px",
+            color: btn.color,
+            borderColor: btn.color
+          }}
+          component={Link} 
+          variant='outlined'
+          href={btn.link}
+          rel="noopener">
+            <btn.Icon />
+            {btn.text}
+          </Button>
+        ))
+      }
+
+
       <Typography sx={{ mt: 1, mb: 3 }} color="text.secondary">
-        Pro tip: See more <Link href="https://mui.com/getting-started/templates/">templates</Link> on
-        the MUI documentation.
+        See more <Link href="https://mui.com/getting-started/templates/">about MUI</Link>.
       </Typography>
-    </Div>
+    </Stack>
   );
 }
