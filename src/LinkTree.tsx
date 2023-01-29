@@ -4,11 +4,12 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Link from '@mui/material/Link'
 
-
+import IconButton from '@mui/material/IconButton';
 // Icons
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import ResumeIcon from '@mui/icons-material/AssignmentInd';
+import ShareIcon from '@mui/icons-material/Share';
 
 const Buttons = [
   {
@@ -54,9 +55,30 @@ export default function LinkTree() {
       }
 
 
-      <Typography sx={{ mt: 1, mb: 3 }} color="text.secondary">
+      <IconButton sx={{
+        border: 2
+      }}
+      onClick={shareAction}>
+        <ShareIcon />
+      </IconButton>
+
+
+      {/* <Typography sx={{ mt: 1, mb: 3 }} color="text.secondary">
         See more <Link href="https://mui.com/getting-started/templates/">about MUI</Link>.
-      </Typography>
+      </Typography> */}
     </Stack>
   );
+}
+
+const shareAction = () => {
+  if (navigator.share) {
+    navigator.share({
+      title: 'Braian Pita',
+      text: 'Share my website with others quick and easy!',
+      url: 'https://braianpita.info',
+    });
+  }
+  else {
+    alert("Share is not supported on this browser.");
+  }
 }
