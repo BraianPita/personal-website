@@ -1,7 +1,6 @@
 import * as React from 'react';
-import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
-import { useTheme, ThemeProvider, createTheme } from '@mui/material/styles';
+import { useTheme, ThemeProvider } from '@mui/material/styles';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import Container from '@mui/material/Container';
@@ -13,6 +12,7 @@ import Link from '@mui/material/Link';
 import CssBaseline from '@mui/material/CssBaseline';
 import myTheme from './theme';
 
+import HomeHeader from './components/HomeHeader';
 
 function Copyright() {
     return (
@@ -33,7 +33,6 @@ function Copyright() {
       </Paper>
     );
   }
-  
 
 
 const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
@@ -54,12 +53,7 @@ function MyApp() {
             minHeight: '100vh'
             }}>
                 <ThemeToggleButton theme={theme} toggleColor={colorMode.toggleColorMode} />
-                <Typography variant="h3" component="h1" align='center'>
-                    Braian Pita
-                </Typography>
-                <Typography variant="caption" align='center' marginBottom={3}>
-                  contact.braianpita@gmail.com
-                </Typography>
+                <HomeHeader contact='contact.braianpita@gmail.com' />
                 <LinkTree />
             </Stack>
             <Copyright />
