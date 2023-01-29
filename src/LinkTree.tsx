@@ -21,7 +21,7 @@ const Buttons = [
     Icon: ResumeIcon,
     text: "Resume",
     color: "red",
-    link: ""
+    link: "/Braian_Pita_Resume.pdf"
   },
   {
     Icon: GitHubIcon,
@@ -45,7 +45,8 @@ export default function LinkTree() {
           component={Link} 
           variant='outlined'
           href={btn.link}
-          rel="noopener">
+          rel="noopener"
+          target="_blank">
             <btn.Icon />
             {btn.text}
           </Button>

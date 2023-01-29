@@ -54,8 +54,11 @@ function MyApp() {
             minHeight: '100vh'
             }}>
                 <ThemeToggleButton theme={theme} toggleColor={colorMode.toggleColorMode} />
-                <Typography variant="h3" component="h1" align='center' marginBottom={3}>
+                <Typography variant="h3" component="h1" align='center'>
                     Braian Pita
+                </Typography>
+                <Typography variant="caption" align='center' marginBottom={3}>
+                  contact.braianpita@gmail.com
                 </Typography>
                 <LinkTree />
             </Stack>
