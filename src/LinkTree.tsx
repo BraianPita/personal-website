@@ -74,7 +74,7 @@ const shareAction = () => {
   if (navigator.share) {
     navigator.share({
       title: 'Braian Pita',
-      text: 'Share my website with others quick and easy!',
+      text: 'Share this website with others.',
       url: 'https://braianpita.info',
     });
   }
