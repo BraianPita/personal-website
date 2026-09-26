@@ -1,13 +1,13 @@
-import * as React from 'react';
-import { createRoot } from 'react-dom/client';
-import CssBaseline from '@mui/material/CssBaseline';
-import { ThemeProvider } from '@mui/material/styles';
-import App from './App';
-import theme from './theme';
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import './index.css'
+import App from './App'
 
-const rootElement = document.getElementById('root');
-const root = createRoot(rootElement!);
+const rootElement = document.getElementById('root')
+if (!rootElement) throw new Error('Root element not found')
 
-root.render(
+createRoot(rootElement).render(
+  <StrictMode>
     <App />
-);
+  </StrictMode>,
+)

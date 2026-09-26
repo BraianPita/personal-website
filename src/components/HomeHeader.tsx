@@ -1,36 +1,27 @@
-import * as React from 'react';
-import Stack from '@mui/material/Stack';
-import Snackbar from '@mui/material/Snackbar';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
+import { toast } from 'sonner'
+import { Copy } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-
-export default function HomeHeader({contact}: {contact: string}) {
-
-    const [copied, setCopied] = React.useState(false);
-  
-  
-    return (
-      <Stack>
-        <Snackbar
-              open={copied}
-              onClose={() => setCopied(false)}
-              autoHideDuration={2000}
-              message="Copied to clipboard"
-            />
-        <Typography variant="h3" component="h1" align='center'>
-            Braian Pita
-        </Typography>
-        <Typography variant="caption" align='center' marginBottom={3}>
-          {contact}
-          <IconButton onClick={() => {
-            navigator.clipboard.writeText(contact);
-            setCopied(true);
-          }} >
-            <ContentCopyIcon sx={{ width: '15px', height: '15px'}} />
-          </IconButton>
-        </Typography>
-      </Stack>
-    );
+export default function HomeHeader({ contact }: { contact: string }) {
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(contact)
+    toast.success('Copied to clipboard')
   }
+
+  return (
+    <header className="mb-8 text-center">
+      <h1 className="text-4xl font-bold tracking-tight">Braian Pita</h1>
+      <p className="mt-2 flex items-center justify-center gap-1 text-sm text-muted-foreground">
+        {contact}
+        <Button
+          variant="ghost"
+          size="icon-xs"
+          onClick={copyToClipboard}
+          aria-label="Copy email to clipboard"
+        >
+          <Copy />
+        </Button>
+      </p>
+    </header>
+  )
+}
