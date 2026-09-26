@@ -1,7 +1,7 @@
 import type { ComponentProps } from 'react'
 import { toast } from 'sonner'
 import { siGithub } from 'simple-icons'
-import { ExternalLink, FileText, Share2 } from 'lucide-react'
+import { ExternalLink, Share2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
 function LinkedInIcon(props: ComponentProps<'svg'>) {
@@ -25,16 +25,13 @@ const links = [
     icon: LinkedInIcon,
     text: 'LinkedIn',
     link: 'https://www.linkedin.com/in/braian-pita/',
-  },
-  {
-    icon: FileText,
-    text: 'Resume',
-    link: '/Braian_Pita_Resume.pdf',
+    className: 'border-blue-600 text-blue-600 hover:bg-blue-600/10 hover:text-blue-600 dark:border-blue-400 dark:text-blue-400 dark:hover:bg-blue-400/10 dark:hover:text-blue-400',
   },
   {
     icon: GithubIcon,
     text: 'Github',
     link: 'https://github.com/BraianPita',
+    className: 'border-zinc-500 text-zinc-600 hover:bg-zinc-500/10 hover:text-zinc-700 dark:border-zinc-300 dark:text-zinc-300 dark:hover:bg-zinc-300/10 dark:hover:text-zinc-100',
   },
 ]
 
@@ -45,7 +42,7 @@ export default function LinkTree() {
         <Button
           key={item.text}
           variant="outline"
-          className="w-40"
+          className={`w-40 ${item.className}`}
           asChild
         >
           <a href={item.link} target="_blank" rel="noopener noreferrer">
@@ -66,7 +63,7 @@ function ShareButton() {
       navigator.share({
         title: 'Braian Pita',
         text: 'Share this website with others.',
-        url: 'https://braianpita.info',
+        url: window.location.origin,
       })
     } else {
       toast.error('Share is not supported on this browser.')
@@ -74,7 +71,12 @@ function ShareButton() {
   }
 
   return (
-    <Button variant="outline" size="icon" className="mt-2" onClick={shareAction}>
+    <Button
+      variant="outline"
+      size="icon"
+      className="mt-2 rounded-full"
+      onClick={shareAction}
+    >
       <Share2 />
     </Button>
   )
