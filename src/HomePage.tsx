@@ -1,15 +1,16 @@
-import { useState } from 'react'
-import { Moon, Sun, Sparkles } from 'lucide-react'
-import { Link } from '@tanstack/react-router'
+import { Moon, Sun } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { useThemeStore, resolveTheme } from '@/stores/theme-store'
 import LinkTree from './LinkTree'
 import HomeHeader from './components/HomeHeader'
 
 export default function HomePage() {
   const origin = window.location.origin
-  const [mode, setMode] = useState<'light' | 'dark'>('dark')
-  const toggleColorMode = () =>
-    setMode((prev) => (prev === 'light' ? 'dark' : 'light'))
+  const theme = useThemeStore((s) => s.theme)
+  const setTheme = useThemeStore((s) => s.setTheme)
+  const resolved = resolveTheme(theme)
+
+  const toggleColorMode = () => setTheme(resolved === 'dark' ? 'light' : 'dark')
 
   return (
     <div className="flex min-h-svh flex-col">
@@ -19,17 +20,11 @@ export default function HomePage() {
           onClick={toggleColorMode}
           className="mb-4 text-foreground"
         >
-          {mode === 'dark' ? <Moon /> : <Sun />}
-          {mode} mode
+          {resolved === 'dark' ? <Moon /> : <Sun />}
+          {resolved} mode
         </Button>
         <HomeHeader contact="contact.braianpita@gmail.com" />
         <LinkTree />
-        <Button variant="outline" className="mt-6 w-40" asChild>
-          <Link to="/skills">
-            <Sparkles />
-            Skills & Experience
-          </Link>
-        </Button>
       </div>
       <Copyright origin={origin} />
     </div>

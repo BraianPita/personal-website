@@ -1,14 +1,12 @@
-import { useEffect } from 'react'
 import { createRootRoute, createRoute, createRouter, Outlet, Link } from '@tanstack/react-router'
 import { Toaster } from '@/components/ui/sonner'
+import { initTheme } from '@/stores/theme-store'
 import HomePage from './HomePage'
 import SkillTreePage from './components/SkillTreePage'
 
 function RootLayout() {
-  useEffect(() => {
-    // Default to dark mode
-    document.documentElement.classList.add('dark')
-  }, [])
+  // Applies the persisted theme to <html> and syncs system preference changes
+  initTheme()
 
   return (
     <>

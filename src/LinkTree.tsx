@@ -1,7 +1,8 @@
 import type { ComponentProps } from 'react'
+import { Link } from '@tanstack/react-router'
 import { toast } from 'sonner'
 import { siGithub } from 'simple-icons'
-import { ExternalLink, Share2 } from 'lucide-react'
+import { ExternalLink, Share2, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
 function LinkedInIcon(props: ComponentProps<'svg'>) {
@@ -38,6 +39,12 @@ const links = [
 export default function LinkTree() {
   return (
     <div className="flex flex-col items-center gap-3">
+      <Button variant="outline" className="w-40" asChild>
+        <Link to="/skills">
+          <Sparkles />
+          Skills & Experience
+        </Link>
+      </Button>
       {links.map((item) => (
         <Button
           key={item.text}
