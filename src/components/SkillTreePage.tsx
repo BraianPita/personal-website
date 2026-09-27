@@ -22,6 +22,7 @@ import {
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
 import { cn } from 'cn'
+import { useIsMobile } from '@/hooks/use-mobile'
 import { getIcon } from '@/lib/skill-icons'
 import { computeGraphLayout, type PositionedNode } from '@/lib/graph-layout'
 import { achievements } from '@/lib/achievements'
@@ -343,6 +344,7 @@ function AchievementsSheet({
 }
 
 export default function SkillTreePage() {
+  const isMobile = useIsMobile()
   const layout = useMemo(() => computeGraphLayout(), [])
   const nodeIndex = useMemo(() => buildNodeIndex(), [])
   const skillPoints = useMemo(() => getTotalSkillPoints(), [])
@@ -358,6 +360,21 @@ export default function SkillTreePage() {
   const canvasRef = useRef<HTMLDivElement | null>(null)
   const viewRef = useRef(view)
   viewRef.current = view
+
+  // Touch state: 1 finger = pan, 2 fingers = pinch zoom
+  const touchState = useRef<
+    | { mode: 'pan'; startX: number; startY: number; panX: number; panY: number }
+    | {
+        mode: 'pinch'
+        startDist: number
+        startZoom: number
+        midX: number
+        midY: number
+        panX: number
+        panY: number
+      }
+    | null
+  >(null)
 
   const onMouseDown = useCallback(
     (e: React.MouseEvent) => {
@@ -391,6 +408,88 @@ export default function SkillTreePage() {
   const onMouseUp = useCallback(() => {
     setDragging(false)
     dragStart.current = null
+  }, [])
+
+  const onTouchStart = useCallback((e: React.TouchEvent) => {
+    const touches = e.touches
+    if (touches.length === 1) {
+      const t = touches[0]
+      touchState.current = {
+        mode: 'pan',
+        startX: t.clientX,
+        startY: t.clientY,
+        panX: viewRef.current.pan.x,
+        panY: viewRef.current.pan.y,
+      }
+    } else if (touches.length === 2) {
+      const [a, b] = [touches[0], touches[1]]
+      const dist = Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY)
+      touchState.current = {
+        mode: 'pinch',
+        startDist: dist,
+        startZoom: viewRef.current.zoom,
+        midX: (a.clientX + b.clientX) / 2,
+        midY: (a.clientY + b.clientY) / 2,
+        panX: viewRef.current.pan.x,
+        panY: viewRef.current.pan.y,
+      }
+    }
+  }, [])
+
+  const onTouchMove = useCallback((e: React.TouchEvent) => {
+    const state = touchState.current
+    if (!state) return
+    const touches = e.touches
+
+    if (state.mode === 'pan' && touches.length === 1) {
+      const t = touches[0]
+      setView((v) => ({
+        ...v,
+        pan: {
+          x: state.panX + (t.clientX - state.startX),
+          y: state.panY + (t.clientY - state.startY),
+        },
+      }))
+    } else if (state.mode === 'pinch' && touches.length === 2) {
+      const [a, b] = [touches[0], touches[1]]
+      const dist = Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY)
+      const scale = dist / state.startDist
+      const nextZoom = state.startZoom * scale
+      // Zoom anchored at the pinch midpoint, compensating for midpoint drift
+      const rect = canvasRef.current?.getBoundingClientRect()
+      if (!rect) return
+      const midX = (a.clientX + b.clientX) / 2
+      const midY = (a.clientY + b.clientY) / 2
+      const cx = midX - rect.left
+      const cy = midY - rect.top
+      setView((v) => {
+        const zoom = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, nextZoom))
+        if (zoom === v.zoom) return v
+        return {
+          zoom,
+          pan: {
+            x: cx - ((cx - state.panX) * zoom) / state.startZoom,
+            y: cy - ((cy - state.panY) * zoom) / state.startZoom,
+          },
+        }
+      })
+    }
+  }, [])
+
+  const onTouchEnd = useCallback((e: React.TouchEvent) => {
+    if (e.touches.length === 0) {
+      touchState.current = null
+    } else if (e.touches.length === 1 && touchState.current?.mode === 'pinch') {
+      // Transition from pinch back to single-finger pan
+      const t = e.touches[0]
+      touchState.current = {
+        mode: 'pan',
+        startX: t.clientX,
+        startY: t.clientY,
+        panX: viewRef.current.pan.x,
+        panY: viewRef.current.pan.y,
+      }
+    }
   }, [])
 
   /**
@@ -460,29 +559,30 @@ export default function SkillTreePage() {
   return (
     <div className="relative h-svh w-full overflow-hidden bg-background">
       {/* Fixed header */}
-      <header className="absolute inset-x-0 top-0 z-20 flex items-center justify-between gap-3 border-b bg-background/80 px-4 py-3 backdrop-blur-md">
-        <div className="flex items-center gap-3">
-          <Button variant="ghost" size="sm" asChild>
+      <header className="absolute inset-x-0 top-0 z-20 flex items-center justify-between gap-2 border-b bg-background/80 px-3 py-2 backdrop-blur-md sm:px-4 sm:py-3">
+        <div className="flex min-w-0 items-center gap-2 sm:gap-3">
+          <Button variant="ghost" size="sm" asChild className="shrink-0">
             <Link to="/">
               <ArrowLeft />
-              Home
+              <span className="hidden sm:inline">Home</span>
             </Link>
           </Button>
-          <Separator orientation="vertical" className="h-6" />
-          <h1 className="text-sm font-semibold">{skills.meta.title}</h1>
+          <Separator orientation="vertical" className="hidden h-6 sm:block" />
+          <h1 className="truncate text-sm font-semibold">{skills.meta.title}</h1>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
           <Badge variant="outline" className="gap-1.5">
             <Sparkles className="size-3 text-amber-400" />
-            {skills.meta.skillPointsLabel}: {skillPoints}
+            <span className="hidden sm:inline">{skills.meta.skillPointsLabel}:</span>
+            {skillPoints}
           </Badge>
-          <Badge variant="outline" className={cn('hidden gap-1.5 sm:flex', emblemColor.text)}>
+          <Badge variant="outline" className={cn('hidden gap-1.5 md:flex', emblemColor.text)}>
             {EmblemIcon && <EmblemIcon className="size-3" />}
             {emblem.branch.name}
           </Badge>
           <Button variant="outline" size="sm" onClick={() => setShowAchievements(true)}>
             <Trophy />
-            Achievements
+            <span className="hidden sm:inline">Achievements</span>
           </Button>
         </div>
       </header>
@@ -507,10 +607,15 @@ export default function SkillTreePage() {
       <div
         ref={canvasRef}
         className={cn('absolute inset-0 pt-16', dragging ? 'cursor-grabbing' : 'cursor-grab')}
+        style={{ touchAction: 'none' }}
         onMouseDown={onMouseDown}
         onMouseMove={onMouseMove}
         onMouseUp={onMouseUp}
         onMouseLeave={onMouseUp}
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
+        onTouchCancel={onTouchEnd}
       >
         <div
           className="relative origin-top-left"
@@ -573,8 +678,10 @@ export default function SkillTreePage() {
 
       {/* Hint */}
       <div className="pointer-events-none absolute bottom-4 left-1/2 z-10 -translate-x-1/2">
-        <p className="rounded-full border bg-background/80 px-3 py-1 text-xs text-muted-foreground backdrop-blur-sm">
-          Drag to pan · Scroll to zoom · Click a skill for details
+        <p className="rounded-full border bg-background/80 px-3 py-1 text-center text-xs text-muted-foreground backdrop-blur-sm">
+          {isMobile
+            ? 'Drag to pan · Pinch to zoom · Tap a skill'
+            : 'Drag to pan · Scroll to zoom · Click a skill for details'}
         </p>
       </div>
     </div>
