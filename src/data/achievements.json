@@ -1,0 +1,32 @@
+{
+  "achievements": [
+    {
+      "id": "control-authority",
+      "name": "Distributed Control Authority",
+      "icon": "legendary-control",
+      "description": "Built a multi-instance realtime control system where operators can take over device control safely — single-writer semantics, sub-second handoff, and zero split-brain incidents.",
+      "skills": ["websockets", "redis", "autoscaling", "single-writer", "latency"]
+    },
+    {
+      "id": "sdr-network",
+      "name": "National-Scale SDR Surveillance",
+      "icon": "legendary-sdr",
+      "description": "Deployed a nationwide airspace surveillance network decoding ADS-B and UAT from distributed SDR receivers, with edge processing and heartbeat health monitoring.",
+      "skills": ["sdr", "go", "edge", "telemetry", "linux"]
+    },
+    {
+      "id": "platform-migration",
+      "name": "Legacy Platform Migration",
+      "icon": "legendary-migration",
+      "description": "Designed and led a full platform modernization — moving a legacy monolith to GraphQL, PostgreSQL and containerized microservices while leading the engineering team.",
+      "skills": ["postgresql", "graphql", "team-leadership", "docker", "aws"]
+    },
+    {
+      "id": "iot-fleet",
+      "name": "IoT Fleet Backend",
+      "icon": "legendary-fleet",
+      "description": "Built fleet-scale device management on cloud infrastructure — MQTT telemetry pipelines, distributed command locking, and vendor hardware integrations.",
+      "skills": ["mqtt", "aws", "command-locking", "vendor-apis", "telemetry"]
+    }
+  ]
+}

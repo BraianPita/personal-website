@@ -1,0 +1,505 @@
+{
+  "meta": {
+    "title": "Skill Tree",
+    "subtitle": "Realtime Systems Engineer / Hardware-Adjacent Full-Stack",
+    "skillPointsLabel": "Skill Points"
+  },
+  "proficiencyScale": [
+    {
+      "level": 0,
+      "name": "Desired",
+      "description": "Not yet started. A skill I want to acquire next — on the roadmap, no hands-on experience yet."
+    },
+    {
+      "level": 1,
+      "name": "Basic",
+      "description": "Tutorials, docs and side experiments. Can follow along and build toy examples, but not without guidance."
+    },
+    {
+      "level": 2,
+      "name": "Intermediate",
+      "description": "Can build working features independently. Gaps appear in edge cases, performance and production hardening."
+    },
+    {
+      "level": 3,
+      "name": "Proficient",
+      "description": "Shipped to production. Comfortable with the tool's failure modes, testing and operational concerns."
+    },
+    {
+      "level": 4,
+      "name": "Advanced",
+      "description": "Deep production experience. Have debugged hard problems, made architectural decisions and set patterns others follow."
+    },
+    {
+      "level": 5,
+      "name": "Mastered",
+      "description": "Designed systems around it and taught it. Can architect, lead and mentor; the tool is an extension of how I think."
+    }
+  ],
+  "branches": [
+    {
+      "id": "languages",
+      "name": "Programming Languages",
+      "icon": "branch-languages",
+      "color": "slate",
+      "nodes": [
+        {
+          "id": "typescript",
+          "name": "JavaScript / TypeScript",
+          "level": 5,
+          "dependencies": [],
+          "tooltip": "Primary language across frontend, backend and tooling",
+          "icon": "typescript"
+        },
+        {
+          "id": "python",
+          "name": "Python",
+          "level": 4,
+          "dependencies": [],
+          "tooltip": "Scripting, data processing and automation",
+          "icon": "python"
+        },
+        {
+          "id": "go",
+          "name": "Go",
+          "level": 2,
+          "dependencies": [],
+          "tooltip": "High-performance edge services",
+          "icon": "go"
+        },
+        {
+          "id": "rust",
+          "name": "Rust",
+          "level": 2,
+          "dependencies": [],
+          "tooltip": "Systems programming exploration",
+          "icon": "rust"
+        },
+        {
+          "id": "dart",
+          "name": "Dart / Flutter",
+          "level": 2,
+          "dependencies": [],
+          "tooltip": "Cross-platform mobile development",
+          "icon": "dart"
+        },
+        {
+          "id": "cpp",
+          "name": "C++",
+          "level": 1,
+          "dependencies": [],
+          "tooltip": "Fundamentals and low-level concepts",
+          "icon": "cpp"
+        },
+        {
+          "id": "java",
+          "name": "Java",
+          "level": 1,
+          "dependencies": [],
+          "tooltip": "OOP fundamentals and JVM ecosystem",
+          "icon": "java"
+        },
+        {
+          "id": "assembly",
+          "name": "Assembly",
+          "level": 1,
+          "dependencies": [],
+          "tooltip": "Low-level architecture and reverse engineering basics",
+          "icon": "assembly"
+        }
+      ]
+    },
+    {
+      "id": "fullstack",
+      "name": "Full-Stack Engineering",
+      "icon": "branch-fullstack",
+      "color": "sky",
+      "nodes": [
+        {
+          "id": "nodejs",
+          "name": "Node.js",
+          "level": 4,
+          "dependencies": ["typescript"],
+          "tooltip": "Backend services, tooling and realtime servers",
+          "icon": "nodejs"
+        },
+        {
+          "id": "react",
+          "name": "React",
+          "level": 4,
+          "dependencies": ["typescript"],
+          "tooltip": "Production SPAs, dashboards and component systems",
+          "icon": "react"
+        },
+        {
+          "id": "nextjs",
+          "name": "Next.js",
+          "level": 3,
+          "dependencies": ["react"],
+          "tooltip": "SSR and full-stack React applications",
+          "icon": "nextjs"
+        },
+        {
+          "id": "graphql",
+          "name": "GraphQL",
+          "level": 4,
+          "dependencies": ["nodejs"],
+          "tooltip": "API layer powering a data platform migration",
+          "icon": "graphql"
+        },
+        {
+          "id": "rest",
+          "name": "REST API Design",
+          "level": 4,
+          "dependencies": ["nodejs"],
+          "tooltip": "API design with OpenAPI documentation",
+          "icon": "rest"
+        },
+        {
+          "id": "postgresql",
+          "name": "PostgreSQL",
+          "level": 4,
+          "dependencies": ["rest"],
+          "tooltip": "Schema migrations, queryable flight/telemetry data",
+          "icon": "postgresql"
+        },
+        {
+          "id": "sql",
+          "name": "SQL",
+          "level": 4,
+          "dependencies": ["postgresql"],
+          "tooltip": "Complex queries and data modeling",
+          "icon": "sql"
+        },
+        {
+          "id": "react-native",
+          "name": "React Native / Expo",
+          "level": 3,
+          "dependencies": ["react"],
+          "tooltip": "Mobile apps shipped to production",
+          "icon": "react-native"
+        },
+        {
+          "id": "shadcn",
+          "name": "shadcn/ui / Material UI",
+          "level": 3,
+          "dependencies": ["react"],
+          "tooltip": "Operator dashboard rebuilds with modern component systems",
+          "icon": "shadcn"
+        }
+      ]
+    },
+    {
+      "id": "iot",
+      "name": "IoT & Hardware-Adjacent",
+      "icon": "branch-iot",
+      "color": "emerald",
+      "nodes": [
+        {
+          "id": "mqtt",
+          "name": "MQTT (EMQX)",
+          "level": 4,
+          "dependencies": [],
+          "tooltip": "Telemetry pipelines and device fleets at scale",
+          "icon": "mqtt"
+        },
+        {
+          "id": "telemetry",
+          "name": "Telemetry Processing",
+          "level": 4,
+          "dependencies": ["mqtt"],
+          "tooltip": "Ingest, normalize and store device telemetry",
+          "icon": "telemetry"
+        },
+        {
+          "id": "vendor-apis",
+          "name": "Vendor Hardware APIs",
+          "level": 4,
+          "dependencies": ["telemetry"],
+          "tooltip": "Docking-station and peripheral integrations",
+          "icon": "vendor-apis"
+        },
+        {
+          "id": "command-locking",
+          "name": "Distributed Command Locking",
+          "level": 4,
+          "dependencies": ["vendor-apis"],
+          "tooltip": "Fleet automation with safe command arbitration",
+          "icon": "command-locking"
+        },
+        {
+          "id": "sdr",
+          "name": "SDR / RF (ADS-B, UAT)",
+          "level": 4,
+          "dependencies": ["telemetry"],
+          "tooltip": "1090MHz/978MHz airspace surveillance decoding",
+          "icon": "sdr"
+        },
+        {
+          "id": "edge",
+          "name": "Edge Computing / Docker",
+          "level": 4,
+          "dependencies": ["sdr", "docker"],
+          "tooltip": "Multi-service Docker deployments with heartbeat monitoring",
+          "icon": "edge"
+        },
+        {
+          "id": "mtls",
+          "name": "mTLS / Device Certificates",
+          "level": 2,
+          "dependencies": ["edge"],
+          "tooltip": "IoT fleet authentication (in progress)",
+          "icon": "mtls"
+        }
+      ]
+    },
+    {
+      "id": "realtime",
+      "name": "Realtime & Distributed",
+      "icon": "branch-realtime",
+      "color": "amber",
+      "nodes": [
+        {
+          "id": "websockets",
+          "name": "WebSockets / Socket.IO",
+          "level": 5,
+          "dependencies": ["nodejs"],
+          "tooltip": "Real-time bidirectional communication in production systems",
+          "icon": "websockets"
+        },
+        {
+          "id": "redis",
+          "name": "Redis (State / Locking)",
+          "level": 4,
+          "dependencies": ["websockets"],
+          "tooltip": "Distributed state & locking coordinating autoscaled instances",
+          "icon": "redis"
+        },
+        {
+          "id": "autoscaling",
+          "name": "Autoscaling Architectures",
+          "level": 4,
+          "dependencies": ["redis"],
+          "tooltip": "Horizontally scaled realtime backends",
+          "icon": "autoscaling"
+        },
+        {
+          "id": "event-driven",
+          "name": "Event-Driven Architecture",
+          "level": 4,
+          "dependencies": ["websockets"],
+          "tooltip": "Webhook lifecycles and async pipelines",
+          "icon": "event-driven"
+        },
+        {
+          "id": "webrtc",
+          "name": "WebRTC / RTMP Streaming",
+          "level": 4,
+          "dependencies": ["event-driven"],
+          "tooltip": "Live video pipelines in production",
+          "icon": "webrtc"
+        },
+        {
+          "id": "recording",
+          "name": "Recording Lifecycle / Retention",
+          "level": 3,
+          "dependencies": ["webrtc"],
+          "tooltip": "Stream recording, storage and retention policies",
+          "icon": "recording"
+        },
+        {
+          "id": "latency",
+          "name": "Sub-Second Latency Engineering",
+          "level": 4,
+          "dependencies": ["autoscaling"],
+          "tooltip": "End-to-end latency tuning for realtime control",
+          "icon": "latency"
+        },
+        {
+          "id": "single-writer",
+          "name": "Single-Writer / Takeover Semantics",
+          "level": 4,
+          "dependencies": ["redis"],
+          "tooltip": "Control handoff without split-brain",
+          "icon": "single-writer"
+        }
+      ]
+    },
+    {
+      "id": "cloud",
+      "name": "Cloud, Infra & DevOps",
+      "icon": "branch-cloud",
+      "color": "violet",
+      "nodes": [
+        {
+          "id": "aws",
+          "name": "AWS (ECS, S3, Lambda, IAM)",
+          "level": 4,
+          "dependencies": ["linux"],
+          "tooltip": "Containerized microservices and serverless workloads",
+          "icon": "aws"
+        },
+        {
+          "id": "docker",
+          "name": "Docker / docker-compose",
+          "level": 4,
+          "dependencies": ["linux"],
+          "tooltip": "Local parity and ECS deployments",
+          "icon": "docker"
+        },
+        {
+          "id": "kubernetes",
+          "name": "Kubernetes",
+          "level": 0,
+          "dependencies": ["docker"],
+          "tooltip": "Container orchestration — next on the roadmap",
+          "icon": "kubernetes"
+        },
+        {
+          "id": "gcp",
+          "name": "GCP (Cloud Run)",
+          "level": 3,
+          "dependencies": ["docker"],
+          "tooltip": "Containerized services on Cloud Run",
+          "icon": "gcp"
+        },
+        {
+          "id": "terraform",
+          "name": "Terraform / IaC",
+          "level": 3,
+          "dependencies": ["aws"],
+          "tooltip": "Environment sync as code",
+          "icon": "terraform"
+        },
+        {
+          "id": "linux",
+          "name": "Linux (Debian)",
+          "level": 4,
+          "dependencies": [],
+          "tooltip": "Server ops and edge device administration",
+          "icon": "linux"
+        },
+        {
+          "id": "cicd",
+          "name": "CI/CD (GitLab, GitHub Actions)",
+          "level": 4,
+          "dependencies": ["docker"],
+          "tooltip": "Pipeline automation from test to deploy",
+          "icon": "cicd"
+        },
+        {
+          "id": "observability",
+          "name": "Observability / Debugging",
+          "level": 4,
+          "dependencies": ["cicd"],
+          "tooltip": "Incident triage across S3/Lambda/Postgres/MQTT",
+          "icon": "observability"
+        },
+        {
+          "id": "mongodb",
+          "name": "MongoDB / DynamoDB",
+          "level": 3,
+          "dependencies": ["aws"],
+          "tooltip": "Document stores for flexible workloads",
+          "icon": "mongodb"
+        }
+      ]
+    },
+    {
+      "id": "security",
+      "name": "Security & Identity",
+      "icon": "branch-security",
+      "color": "rose",
+      "nodes": [
+        {
+          "id": "oauth",
+          "name": "OAuth / SSO",
+          "level": 3,
+          "dependencies": ["rest"],
+          "tooltip": "Custom auth platforms and enterprise SSO",
+          "icon": "oauth"
+        },
+        {
+          "id": "jwt",
+          "name": "JWT (Asymmetric Signatures)",
+          "level": 3,
+          "dependencies": ["oauth"],
+          "tooltip": "Token-based auth with better-auth",
+          "icon": "jwt"
+        },
+        {
+          "id": "identity",
+          "name": "Identity Platform Design",
+          "level": 2,
+          "dependencies": ["jwt"],
+          "tooltip": "Enterprise SSO platform (in progress)",
+          "icon": "identity"
+        },
+        {
+          "id": "iam",
+          "name": "IAM Practices",
+          "level": 3,
+          "dependencies": ["oauth"],
+          "tooltip": "Least-privilege access design",
+          "icon": "iam"
+        }
+      ]
+    },
+    {
+      "id": "leadership",
+      "name": "Leadership & Craft",
+      "icon": "branch-leadership",
+      "color": "cyan",
+      "nodes": [
+        {
+          "id": "team-leadership",
+          "name": "Team Leadership",
+          "level": 4,
+          "dependencies": [],
+          "tooltip": "Leading up to 6 engineers",
+          "icon": "team-leadership"
+        },
+        {
+          "id": "scrum",
+          "name": "Scrum / Release Scoping",
+          "level": 4,
+          "dependencies": ["team-leadership"],
+          "tooltip": "Sprint planning and release scoping",
+          "icon": "scrum"
+        },
+        {
+          "id": "migrations",
+          "name": "Legacy → Modern Migrations",
+          "level": 5,
+          "dependencies": ["team-leadership", "postgresql", "graphql"],
+          "tooltip": "Designed and led full platform migrations",
+          "icon": "migrations"
+        },
+        {
+          "id": "release-ownership",
+          "name": "Production Release Ownership",
+          "level": 4,
+          "dependencies": ["scrum"],
+          "tooltip": "Owning releases end to end",
+          "icon": "release-ownership"
+        },
+        {
+          "id": "agentic",
+          "name": "AI-Assisted / Agentic Engineering",
+          "level": 4,
+          "dependencies": ["team-leadership"],
+          "tooltip": "Team standards and processes for AI tooling",
+          "icon": "agentic"
+        },
+        {
+          "id": "cross-functional",
+          "name": "Cross-Functional Coordination",
+          "level": 4,
+          "dependencies": ["release-ownership"],
+          "tooltip": "Aligning product, ops and engineering",
+          "icon": "cross-functional"
+        }
+      ]
+    }
+  ]
+}
